@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxy Settings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Your CSS styles remain the same */
+        :root {
+            --bg-color-light: #f4f4f9;
+            --text-color-light: #333;
+            --input-bg-light: #fff;
+            --input-text-light: #333;
+            --button-color-light: #4CAF50;
+            --button-text-light: #fff;
+            --button-outline-light: #ccc;
+
+            --bg-color-dark: #1e1e1e;
+            --text-color-dark: #e0e0e0;
+            --input-bg-dark: #2c2c2c;
+            --input-text-dark: #ccc;
+            --button-color-dark: #4CAF50;
+            --button-text-dark: #fff;
+            --button-outline-dark: #555;
+
+            --clear-button-color: #f44336;
+            --clear-button-text: #fff;
+            --dark-mode-icon-color: #f39c12;
+            --light-mode-icon-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            width: 300px;
+            background-color: var(--bg-color-light);
+            color: var(--text-color-light);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-color-dark);
+            color: var(--text-color-dark);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold; /* Set font weight to bold */
+            font-family: 'Fredoka', sans-serif; /* Set font family */
+            font-size: 1.5em;
+        }
+
+        h2.dark-mode {
+            color: var(--text-color-dark);
+        }
+
+        label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid var(--button-outline-light);
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: var(--input-bg-light);
+            color: var(--input-text-light);
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        input.dark-mode, select.dark-mode {
+            background-color: var(--input-bg-dark);
+            color: var(--input-text-dark);
+            border-color: var(--button-outline-dark);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--button-color-light);
+            color: var(--button-text-light);
+            border: 1px solid var(--button-outline-light);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: opacity 0.3s, border-color 0.3s;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .danger {
+            background-color: var(--clear-button-color);
+            color: var(--clear-button-text);
+            border: 1px solid #c62828;
+        }
+
+        .danger:hover {
+            background-color: #e53935;
+        }
+
+        #status {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #555;
+            text-align: center;
+        }
+
+        #dark-mode-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            transition: opacity 0.3s ease;
+        }
+
+        #dark-mode-icon:hover {
+            opacity: 0.7;
+        }
+
+        #footer {
+            display: flex;
+            flex-direction: column; /* Stack the items vertically */
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        #footer img {
+            margin-bottom: 10px; /* Add some space below the logo */
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        #footer a {
+            color: inherit;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        #footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2 id="title">Proxy Settings</h2>
+    <label for="proxy-host">Host</label>
+    <input type="text" id="proxy-host" placeholder="e.g. 192.168.1.1 or example.com">
+    
+    <label for="proxy-port">Port</label>
+    <input type="text" id="proxy-port" placeholder="e.g. 8080">
+    
+    <label for="proxy-scheme">Scheme</label>
+    <select id="proxy-scheme">
+        <option value="http">HTTP</option>
+        <option value="https">HTTPS</option>
+        <option value="socks4">SOCKS4</option>
+        <option value="socks5">SOCKS5</option>
+    </select>
+    
+    <div id="socks-auth" style="display: none;">
+        <label for="proxy-username">Username</label>
+        <input type="text" id="proxy-username" placeholder="Enter username">
+        
+        <label for="proxy-password">Password</label>
+        <input type="password" id="proxy-password" placeholder="Enter password">
+    </div>
+    
+    <button id="set-proxy-btn">Set Proxy</button>
+    <button id="clear-proxy-btn" class="danger">Clear Proxy</button>
+    
+    <div id="status"></div>
+    
+    <img id="dark-mode-icon" src="night_icon.svg" alt="Toggle Dark Mode">
+    
+    <div id="footer">
+        <img src="https://avatars.githubusercontent.com/u/175826586?s=48&v=4" alt="HackySoft Logo">
+        <a href="https://github.com/HackysoftOfficial" target="_blank">Made by HackySoft</a>
+    </div>
+    
+    <!-- Link to external JavaScript file -->
+    <script src="popup.js"></script>
+</body>
+</html>
